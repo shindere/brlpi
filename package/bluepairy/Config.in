@@ -1,0 +1,12 @@
+config BR2_PACKAGE_BLUEPAIRY
+	bool "bluepairy"
+	depends on BR2_TOOLCHAIN_BUILDROOT_CXX
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	help
+	  Automatically pair bluetooth braille devices.
+
+	  https://github.com/mlang/bluepairy/
+
+comment "bluepairy needs a toolchain w/ cxx, threads"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS || !BR2_TOOLCHAIN_BUILDROOT_CXX
+

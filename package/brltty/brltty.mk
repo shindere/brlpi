@@ -30,7 +30,7 @@ define BRLTTY_INSTALL_INIT_SYSV
 endef
 
 define BRLTTY_INSTALL_INIT_SYSTEMD
-	$(INSTALL) -D -m 0644 $(BR2_EXTERNAL_BRLPI_PATH)package/brltty/brltty.service \
+	$(INSTALL) -D -m 0644 $(BR2_EXTERNAL_BRLPI_PATH)/package/brltty/brltty.service \
 		   $(TARGET_DIR)/usr/lib/systemd/system/brltty.service
 
 	mkdir -p $(TARGET_DIR)/etc/systemd/system/sysinit.target.wants
