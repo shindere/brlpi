@@ -1,0 +1,1 @@
+source "$BR2_EXTERNAL_BRLPI_PATH/package/brltty/Config.in"
