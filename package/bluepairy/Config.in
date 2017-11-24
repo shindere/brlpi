@@ -2,6 +2,9 @@ config BR2_PACKAGE_BLUEPAIRY
 	bool "bluepairy"
 	depends on BR2_TOOLCHAIN_BUILDROOT_CXX
 	depends on BR2_TOOLCHAIN_HAS_THREADS
+	select BR2_PACKAGE_BOOST
+	select BR2_PACKAGE_BOOST_PROGRAM_OPTIONS
+	select BR2_PACKAGE_DBUS
 	help
 	  Automatically pair bluetooth braille devices.
 
