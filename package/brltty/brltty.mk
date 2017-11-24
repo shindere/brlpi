@@ -18,6 +18,13 @@ ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS),y)
 BRLTTY_DEPENDENCIES += bluez5_utils
 endif
 
+ifeq ($(BR2_PACKAGE_ICU),y)
+BRLTTY_DEPENDENCIES += icu
+BRLTTY_CONF_OPTS += --enable-icu
+else
+BRLTTY_CONF_OPTS += --disable-icu
+endif
+
 define BRLTTY_INSTALL_CONF
 	$(INSTALL) -D -m 644 $(@D)/Documents/brltty.conf $(TARGET_DIR)/etc/brltty.conf
 endef
