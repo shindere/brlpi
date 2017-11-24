@@ -25,13 +25,6 @@ else
 BRLTTY_CONF_OPTS += --disable-icu
 endif
 
-ifeq ($(BR2_PACKAGE_POLKIT),y)
-BRLTTY_DEPENDENCIES += polkit
-BRLTTY_CONF_OPTS += --enable-polkit
-else
-BRLTTY_CONF_OPTS += --disable-polkit
-endif
-
 define BRLTTY_INSTALL_CONF
 	$(INSTALL) -D -m 644 $(@D)/Documents/brltty.conf $(TARGET_DIR)/etc/brltty.conf
 endef
