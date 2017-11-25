@@ -15,6 +15,12 @@ BRLTTY_DEPENDENCIES = $(TARGET_NLS_DEPENDENCIES)
 
 BRLTTY_CONF_OPTS = --disable-java-bindings --disable-lisp-bindings --disable-ocaml-bindings --disable-python-bindings --disable-tcl-bindings
 
+ifneq ($(BRLTTY__INSTALL_STAGING),YES)
+BRLTTY_CONF_OPTS += --disable-api
+else
+BRLTTY_CONF_OPTS += --enable-api
+endif
+
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS),y)
 BRLTTY_DEPENDENCIES += bluez5_utils
 BRLTTY_CONF_OPTS += --with-bluetooth-package
@@ -34,6 +40,13 @@ BRLTTY_DEPENDENCIES += ncurses
 BRLTTY_CONF_OPTS += --with-curses
 else
 BRLTTY_CONF_OPTS += --without-curses
+endif
+
+ifeq ($(BR2_PACKAGE_SYSTEMD),y)
+BRLTTY_DEPENDENCIES += systemd
+BRLTTY_CONF_OPTS += --with-service-package
+else
+BRLTTY_CONF_OPTS += --without-service-package
 endif
 
 ifeq ($(BR2_SYSTEM_ENABLE_NLS),y)
