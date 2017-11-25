@@ -11,8 +11,10 @@ BRLTTY_INSTALL_STAGING_OPTS = INSTALL_ROOT=$(STAGING_DIR) install
 BRLTTY_INSTALL_TARGET_OPTS = INSTALL_ROOT=$(TARGET_DIR) install
 BRLTTY_LICENSE_FILES = LICENSE-GPL LICENSE-LGPL
 
+BRLTTY_DEPENDENCIES = $(TARGET_NLS_DEPENDENCIES)
+
 # Java bindings fail to cross compile
-BRLTTY_CONF_OPTS += --disable-java-bindings
+BRLTTY_CONF_OPTS = --disable-java-bindings
 
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS),y)
 BRLTTY_DEPENDENCIES += bluez5_utils
@@ -23,6 +25,12 @@ BRLTTY_DEPENDENCIES += icu
 BRLTTY_CONF_OPTS += --enable-icu
 else
 BRLTTY_CONF_OPTS += --disable-icu
+endif
+
+ifeq ($(BR2_SYSTEM_ENABLE_NLS),y)
+NLS_OPTS = --enable-i18n
+else
+NLS_OPTS = --disable-i18n
 endif
 
 define BRLTTY_INSTALL_CONF
