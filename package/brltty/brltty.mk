@@ -13,17 +13,10 @@ BRLTTY_LICENSE_FILES = LICENSE-GPL LICENSE-LGPL
 
 BRLTTY_DEPENDENCIES = $(TARGET_NLS_DEPENDENCIES)
 
-BRLTTY_CONF_OPTS = --disable-java-bindings --disable-ocaml-bindings
+BRLTTY_CONF_OPTS = --disable-java-bindings --disable-ocaml-bindings --disable-tcl-bindings
 
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS),y)
 BRLTTY_DEPENDENCIES += bluez5_utils
-endif
-
-ifeq ($(BR2_PACKAGE_NCURSES),y)
-BRLTTY_DEPENDENCIES += ncurses
-BRLTTY_CONF_OPTS += --with-curses
-else
-BRLTTY_CONF_OPTS += --without-curses
 endif
 
 ifeq ($(BR2_PACKAGE_ICU),y)
@@ -33,11 +26,25 @@ else
 BRLTTY_CONF_OPTS += --disable-icu
 endif
 
-ifeq ($(BR2_PACKAGE_TCL),y)
-BRLTTY_DEPENDENCIES += tcl
-BRLTTY_CONF_OPTS += --enable-tcl-bindings
+ifeq ($(BR2_PACKAGE_NCURSES),y)
+BRLTTY_DEPENDENCIES += ncurses
+BRLTTY_CONF_OPTS += --with-curses
 else
-BRLTTY_CONF_OPTS += --disable-tcl-bindings
+BRLTTY_CONF_OPTS += --without-curses
+endif
+
+ifeq ($(BR2_PACKAGE_PYTHON),y)
+BRLTTY_DEPENDENCIES += python
+BRLTTY_CONF_OPTS += --enable-python-bindings
+else
+BRLTTY_CONF_OPTS += --disable-python-bindings
+endif
+
+ifeq ($(BR2_PACKAGE_PYTHON3),y)
+BRLTTY_DEPENDENCIES += python3
+BRLTTY_CONF_OPTS += --enable-python-bindings
+else
+BRLTTY_CONF_OPTS += --disable-python-bindings
 endif
 
 ifeq ($(BR2_SYSTEM_ENABLE_NLS),y)
