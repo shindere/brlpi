@@ -4,7 +4,7 @@ config BR2_PACKAGE_BLUEPAIRY
 	depends on BR2_TOOLCHAIN_HAS_THREADS
 	select BR2_PACKAGE_BOOST
 	select BR2_PACKAGE_BOOST_PROGRAM_OPTIONS
-	select BR2_PACKAGE_DBUS
+	select BR2_PACKAGE_BLUEZ5_UTILS
 	help
 	  Automatically pair bluetooth braille devices.
 

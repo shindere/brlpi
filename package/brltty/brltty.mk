@@ -17,6 +17,9 @@ BRLTTY_CONF_OPTS = --disable-java-bindings --disable-lisp-bindings --disable-oca
 
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS),y)
 BRLTTY_DEPENDENCIES += bluez5_utils
+BRLTTY_CONF_OPTS += --with-bluetooth-package
+else
+BRLTTY_CONF_OPTS += --without-bluetooth-package
 endif
 
 ifeq ($(BR2_PACKAGE_ICU),y)
@@ -34,9 +37,9 @@ BRLTTY_CONF_OPTS += --without-curses
 endif
 
 ifeq ($(BR2_SYSTEM_ENABLE_NLS),y)
-NLS_OPTS = --enable-i18n
+BRLTTY_CONF_OPTS += --enable-i18n
 else
-NLS_OPTS = --disable-i18n
+BRLTTY_CONF_OPTS += --disable-i18n
 endif
 
 define BRLTTY_INSTALL_CONF
