@@ -13,8 +13,7 @@ BRLTTY_LICENSE_FILES = LICENSE-GPL LICENSE-LGPL
 
 BRLTTY_DEPENDENCIES = $(TARGET_NLS_DEPENDENCIES)
 
-# Java bindings fail to cross compile
-BRLTTY_CONF_OPTS = --disable-java-bindings
+BRLTTY_CONF_OPTS = --disable-java-bindings --disable-ocaml-bindings
 
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS),y)
 BRLTTY_DEPENDENCIES += bluez5_utils
@@ -22,11 +21,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_NCURSES),y)
 BRLTTY_DEPENDENCIES += ncurses
-ifeq ($(BR2_PACKAGE_NCURSES_WCHAR),y)
-BRLTTY_CONF_OPTS += --with-curses=ncursesw
-else
-BRLTTY_CONF_OPTS += --with-curses=ncurses
-endif
+BRLTTY_CONF_OPTS += --with-curses
 else
 BRLTTY_CONF_OPTS += --without-curses
 endif
@@ -36,6 +31,13 @@ BRLTTY_DEPENDENCIES += icu
 BRLTTY_CONF_OPTS += --enable-icu
 else
 BRLTTY_CONF_OPTS += --disable-icu
+endif
+
+ifeq ($(BR2_PACKAGE_TCL),y)
+BRLTTY_DEPENDENCIES += tcl
+BRLTTY_CONF_OPTS += --enable-tcl-bindings
+else
+BRLTTY_CONF_OPTS += --disable-tcl-bindings
 endif
 
 ifeq ($(BR2_SYSTEM_ENABLE_NLS),y)
