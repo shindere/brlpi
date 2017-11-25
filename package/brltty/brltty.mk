@@ -20,6 +20,17 @@ ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS),y)
 BRLTTY_DEPENDENCIES += bluez5_utils
 endif
 
+ifeq ($(BR2_PACKAGE_NCURSES),y)
+BRLTTY_DEPENDENCIES += ncurses
+ifeq ($(BR2_PACKAGE_NCURSES_WCHAR),y)
+BRLTTY_CONF_OPTS += --with-curses=ncursesw
+else
+BRLTTY_CONF_OPTS += --with-curses=ncurses
+endif
+else
+BRLTTY_CONF_OPTS += --without-curses
+endif
+
 ifeq ($(BR2_PACKAGE_ICU),y)
 BRLTTY_DEPENDENCIES += icu
 BRLTTY_CONF_OPTS += --enable-icu
