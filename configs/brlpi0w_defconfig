@@ -33,6 +33,7 @@ BR2_TARGET_ROOTFS_EXT2_4=y
 BR2_ROOTFS_POST_BUILD_SCRIPT="board/raspberrypi0/post-build.sh"
 BR2_ROOTFS_POST_IMAGE_SCRIPT="board/raspberrypi0/post-image.sh"
 
+BR2_ROOTFS_POST_SCRIPT_ARGS="--add-pi3-miniuart-bt-overlay"
 BR2_ENABLE_LOCALE_PURGE=n
 BR2_INIT_SYSTEMD=y
 BR2_PACKAGE_RPI_WIFI_FIRMWARE=y
