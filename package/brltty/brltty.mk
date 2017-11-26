@@ -55,19 +55,15 @@ else
 BRLTTY_CONF_OPTS += --disable-i18n
 endif
 
+ifneq ($(BR2_PACKAGE_BRLTTY_TEXT_TABLE),"")
+BRLTTY_CONF_OPTS += --with-text-table=$(call qstrip,$(BR2_PACKAGE_BRLTTY_TEXT_TABLE))
+endif
+
 define BRLTTY_INSTALL_CONF
 	$(INSTALL) -D -m 644 $(@D)/Documents/brltty.conf $(TARGET_DIR)/etc/brltty.conf
 endef
 
-define BRLTTY_SET_TEXT_TABLE
-	mkdir -p $(TARGET_DIR)/etc/xdg/brltty
-	echo text-table $(BR2_PACKAGE_BRLTTY_TEXT_TABLE) >> $(TARGET_DIR)/etc/xdg/brltty/brltty.conf
-endef
-
 BRLTTY_POST_INSTALL_TARGET_HOOKS += BRLTTY_INSTALL_CONF
-ifneq ($(BR2_PACKAGE_BRLTTY_TEXT_TABLE),"")
-BRLTTY_POST_INSTALL_TARGET_HOOKS += BRLTTY_SET_TEXT_TABLE
-endif
 
 define BRLTTY_INSTALL_INIT_SYSV
 	$(INSTALL) -D -m 0755 $(BR2_EXTERNAL_BRLPI_PATH)/package/brltty/S10brltty \
