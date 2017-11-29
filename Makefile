@@ -16,6 +16,6 @@ buildroot/Makefile:
 	git submodule update --init buildroot
 
 clean:
-	rm -rf brlpi0w
+	rm -rf brlpi0w brlpi3
 	git submodule deinit -f buildroot
 
