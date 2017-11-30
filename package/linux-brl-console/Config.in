@@ -1,0 +1,5 @@
+config BR2_PACKAGE_LINUX_BRL_CONSOLE
+	bool "linux-brl-console"
+	help
+	  Provides console fonts for the Unicode Braille row.
+

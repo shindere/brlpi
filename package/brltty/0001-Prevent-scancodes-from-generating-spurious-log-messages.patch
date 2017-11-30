@@ -1,0 +1,19 @@
+commit ba42441d03c6145fe6859c90fb01b1fa16221a2f
+Author: Mario Lang <mlang@delysid.org>
+Date:   Thu Nov 30 13:14:47 2017 +0100
+
+    Prevent scancodes from generating spurious log messages. (ml)
+
+diff --git a/Drivers/Braille/HandyTech/braille.c b/Drivers/Braille/HandyTech/braille.c
+index 53fb4a16e..4c4a9289c 100644
+--- a/Drivers/Braille/HandyTech/braille.c
++++ b/Drivers/Braille/HandyTech/braille.c
+@@ -1560,7 +1560,7 @@ brl_readCommand (BrailleDisplay *brl, KeyTableCommandContext context) {
+                   case HT_EXTPKT_Scancode: {
+                     while (length--)
+                       enqueueCommand(BRL_CMD_BLK(PASSAT) | BRL_ARG_PUT(*bytes++));
+-                    break;
++                    continue;
+                   }
+ 
+                   case HT_EXTPKT_GetRTC: {
