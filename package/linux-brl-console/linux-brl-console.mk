@@ -1,3 +1,9 @@
+################################################################################
+#
+# linux-brl-console
+#
+################################################################################
+
 LINUX_BRL_CONSOLE_SOURCE = linux-brl-console.tgz
 LINUX_BRL_CONSOLE_SITE = http://brl.thefreecat.org
 
