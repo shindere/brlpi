@@ -19,4 +19,11 @@ LYNX_DEPENDENCIES += gnutls
 LYNX_CONF_OPTS += --with-gnutls
 endif
 
+ifeq ($(BR2_PACKAGE_ZLIB),y)
+LYNX_DEPENDENCIES += zlib
+LYNX_CONF_OPTS += --with-zlib
+else
+LYNX_CONF_OPTS += --without-zlib
+endif
+
 $(eval $(autotools-package))
