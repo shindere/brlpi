@@ -4,7 +4,8 @@
 #
 ################################################################################
 
-LINUX_BRL_CONSOLE_SOURCE = linux-brl-console.tgz
+LINUX_BRL_CONSOLE_VERSION = 1.6
+LINUX_BRL_CONSOLE_SOURCE = linux-brl-console-$(LINUX_BRL_CONSOLE_VERSION).tgz
 LINUX_BRL_CONSOLE_SITE = http://brl.thefreecat.org
 
 LINUX_BRL_CONSOLE_DEPENDENCIES = host-linux-brl-console
