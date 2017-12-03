@@ -7,6 +7,8 @@
 LYNX_VERSION = 2.8.9dev.16
 LYNX_SOURCE = lynx$(LYNX_VERSION).tar.bz2
 LYNX_SITE = ftp://ftp.invisible-island.net/lynx/tarballs
+LYNX_LICENSE = GPL-2.0
+LYNX_LICENSE_FILES = COPYING
 
 LYNX_DEPENDENCIES = $(TARGET_NLS_DEPENDENCIES) ncurses
 LYNX_CONF_OPTS = --with-screen=ncurses --with-curses-dir=$(TARGET_DIR)/usr
