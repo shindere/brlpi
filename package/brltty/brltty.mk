@@ -64,13 +64,20 @@ define BRLTTY_INSTALL_INIT_SYSV
 		   $(TARGET_DIR)/etc/init.d/S10brltty
 endef
 
-define BRLTTY_INSTALL_INIT_SYSTEMD
-	$(INSTALL) -D -m 0644 $(BR2_EXTERNAL_BRLPI_PATH)/package/brltty/brltty.service \
-		   $(TARGET_DIR)/usr/lib/systemd/system/brltty.service
+ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
+# USB is handled by the Udev rules
+BRLTTY_CONF_OPTS += --with-braille-device=bluetooth:
+define BRLTTY_INSTALL_UDEV
+	$(MAKE) -C $(@D)/Autostart/Udev $(BRLTTY_INSTALL_TARGET_OPTS) UDEV_RULES_TYPE=all install
+endef
+BRLTTY_POST_INSTALL_TARGET_HOOKS += BRLTTY_INSTALL_UDEV
+endif
 
+define BRLTTY_INSTALL_INIT_SYSTEMD
+	$(MAKE) -C $(@D)/Autostart/Systemd $(BRLTTY_INSTALL_TARGET_OPTS) install
 	mkdir -p $(TARGET_DIR)/etc/systemd/system/sysinit.target.wants
-	ln -fs  ../../../../usr/lib/systemd/system/brltty.service \
-		$(TARGET_DIR)/etc/systemd/system/sysinit.target.wants/brltty.service
+	ln -fs  ../../../../usr/lib/systemd/system/brltty.target \
+		$(TARGET_DIR)/etc/systemd/system/sysinit.target.wants/brltty.target
 endef
 
 $(eval $(autotools-package))

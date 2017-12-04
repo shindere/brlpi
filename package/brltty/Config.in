@@ -2,6 +2,7 @@ config BR2_PACKAGE_BRLTTY
 	bool "brltty"
 	depends on BR2_USE_WCHAR
 	depends on BR2_TOOLCHAIN_HAS_THREADS
+	select BR2_PACKAGE_BASH if BR2_INIT_SYSTEMD
 	help
 	  A daemon providing access to the Linux console
 	  for a blind person using a refreshable braille display.
