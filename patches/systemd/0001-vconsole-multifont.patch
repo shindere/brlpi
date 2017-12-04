@@ -1,0 +1,54 @@
+commit ad469984cc4d0625cd966527a3a19c9cc86e76c5
+Author: Mario Lang <mlang@delysid.org>
+Date:   Tue Dec 5 00:38:10 2017 +0100
+
+    vconsole: Allow multiple space separated fonts in FONT=
+    
+    setfont allows multiple fonts to be specified.
+    Split contents of FONT= by space, and pass as individual args.
+    This allows settings like:
+    
+    FONT=Lat15-Fixed16 brl-16x8
+
+diff --git a/man/vconsole.conf.xml b/man/vconsole.conf.xml
+index fecbfd82b..16aca0348 100644
+--- a/man/vconsole.conf.xml
++++ b/man/vconsole.conf.xml
+@@ -111,7 +111,7 @@
+         <term><varname>FONT_MAP=</varname></term>
+         <term><varname>FONT_UNIMAP=</varname></term>
+ 
+-        <listitem><para>Configures the console font, the console map
++        <listitem><para>Configures the console font(s), the console map
+         and the unicode font map.</para></listitem>
+       </varlistentry>
+ 
+diff --git a/src/vconsole/vconsole-setup.c b/src/vconsole/vconsole-setup.c
+index c928741a4..c1a10953f 100644
+--- a/src/vconsole/vconsole-setup.c
++++ b/src/vconsole/vconsole-setup.c
+@@ -168,8 +168,9 @@ static int keyboard_load_and_wait(const char *vc, const char *map, const char *m
+ }
+ 
+ static int font_load_and_wait(const char *vc, const char *font, const char *map, const char *unimap) {
++        _cleanup_strv_free_ char ** fonts = strv_split(font, " ");
+         _cleanup_free_ char *cmd = NULL;
+-        const char *args[9];
++        const char *args[8 + strv_length(fonts)];
+         unsigned i = 0;
+         pid_t pid;
+ 
+@@ -188,8 +189,11 @@ static int font_load_and_wait(const char *vc, const char *font, const char *map,
+                 args[i++] = "-u";
+                 args[i++] = unimap;
+         }
+-        if (!isempty(font))
+-                args[i++] = font;
++        if (!isempty(font)) {
++                char ** f;
++                STRV_FOREACH(f, fonts)
++                        args[i++] = *f;
++        }
+         args[i++] = NULL;
+ 
+         log_debug("Executing \"%s\"...",

@@ -1,0 +1,11 @@
+--- console-setup-1.164/Fonts/Makefile.orig	2016-05-19 05:01:09.000000000 +0200
++++ console-setup-1.164/Fonts/Makefile	2017-12-04 22:47:39.256879574 +0100
+@@ -232,7 +232,7 @@
+ 				$(FONT_NAMES)))
+ 
+ # all available fonts for framebuffer
+-ALL_FB_FONT_NAMES := $(filter %x6 %x10 %x11 %x12 %x14 %x16, \
++ALL_FB_FONT_NAMES := $(filter %x6 %x10 %x11 %x12 %x14 %Fixed15 %x16, \
+ 			$(ALL_FONT_NAMES))
+ # all vailable fonts not for framebuffer
+ ALL_NONFB_FONT_NAMES := $(filter-out %x6 %x10 %x11 %x12 %x14 %x16, \
