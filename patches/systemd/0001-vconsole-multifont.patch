@@ -1,4 +1,4 @@
-commit ad469984cc4d0625cd966527a3a19c9cc86e76c5
+commit e2c3e0f8d0fceb6bc3dbea8ec2e92da5c4275bab
 Author: Mario Lang <mlang@delysid.org>
 Date:   Tue Dec 5 00:38:10 2017 +0100
 
@@ -24,17 +24,17 @@ index fecbfd82b..16aca0348 100644
        </varlistentry>
  
 diff --git a/src/vconsole/vconsole-setup.c b/src/vconsole/vconsole-setup.c
-index c928741a4..c1a10953f 100644
+index c928741a4..afc2f6224 100644
 --- a/src/vconsole/vconsole-setup.c
 +++ b/src/vconsole/vconsole-setup.c
 @@ -168,8 +168,9 @@ static int keyboard_load_and_wait(const char *vc, const char *map, const char *m
  }
  
  static int font_load_and_wait(const char *vc, const char *font, const char *map, const char *unimap) {
-+        _cleanup_strv_free_ char ** fonts = strv_split(font, " ");
++        _cleanup_strv_free_ char **font_names = strv_split(font, " ");
          _cleanup_free_ char *cmd = NULL;
 -        const char *args[9];
-+        const char *args[8 + strv_length(fonts)];
++        const char *args[8 + strv_length(font_names)];
          unsigned i = 0;
          pid_t pid;
  
@@ -45,9 +45,9 @@ index c928741a4..c1a10953f 100644
 -        if (!isempty(font))
 -                args[i++] = font;
 +        if (!isempty(font)) {
-+                char ** f;
-+                STRV_FOREACH(f, fonts)
-+                        args[i++] = *f;
++                char **font_name;
++                STRV_FOREACH(font_name, font_names)
++                        args[i++] = *font_name;
 +        }
          args[i++] = NULL;
  
