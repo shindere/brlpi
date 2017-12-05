@@ -22,6 +22,13 @@ else
 BRLTTY_CONF_OPTS += --without-bluetooth-package
 endif
 
+ifeq ($(BR2_PACKAGE_ESPEAK),y)
+BRLTTY_DEPENDENCIES += espeak
+BRLTTY_CONF_OPTS += --with-espeak=$(TARGET_DIR)/usr
+else
+BRLTTY_CONF_OPTS += --without-espeak
+endif
+
 ifeq ($(BR2_PACKAGE_ICU),y)
 BRLTTY_DEPENDENCIES += icu
 BRLTTY_CONF_OPTS += --enable-icu
