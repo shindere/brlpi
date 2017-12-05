@@ -1,0 +1,4 @@
+config BR2_PACKAGE_CONSOLE_SETUP
+	bool "console-setup"
+	help
+	  Console fonts from the Debian console-setup package.
