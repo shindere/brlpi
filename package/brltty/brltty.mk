@@ -36,6 +36,13 @@ else
 BRLTTY_CONF_OPTS += --without-flite
 endif
 
+ifeq ($(BR2_PACKAGE_SPEECH_DISPATCHER),y)
+BRLTTY_DEPENDENCIES += speech-dispatcher
+BRLTTY_CONF_OPTS += --with-speechd=$(TARGET_DIR)/usr
+else
+BRLTTY_CONF_OPTS += --without-speechd
+endif
+
 ifeq ($(BR2_PACKAGE_ICU),y)
 BRLTTY_DEPENDENCIES += icu
 BRLTTY_CONF_OPTS += --enable-icu
