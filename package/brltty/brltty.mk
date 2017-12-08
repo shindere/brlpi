@@ -29,6 +29,13 @@ else
 BRLTTY_CONF_OPTS += --without-espeak
 endif
 
+ifeq ($(BR2_PACKAGE_FLITE),y)
+BRLTTY_DEPENDENCIES += flite
+BRLTTY_CONF_OPTS += --with-espeak=$(TARGET_DIR)/usr
+else
+BRLTTY_CONF_OPTS += --without-flite
+endif
+
 ifeq ($(BR2_PACKAGE_ICU),y)
 BRLTTY_DEPENDENCIES += icu
 BRLTTY_CONF_OPTS += --enable-icu
